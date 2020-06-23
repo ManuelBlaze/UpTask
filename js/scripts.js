@@ -201,6 +201,31 @@ function accionesTareas(e) {
     }
     if (e.target.classList.contains('fa-trash')) {
         //Borrar
+        Swal.fire({
+            title: 'Seguro(a)?',
+            text: "Esta acción no se puede deshacer!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Borrar!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                var tareaEliminar = e.target.parentElement.parentElement;
+                //Borrar de la BD
+                eliminarTareaBD(tareaEliminar);
+
+                //Borrar del html
+                tareaEliminar.remove();
+
+                Swal.fire(
+                    'Eliminado!',
+                    'La tarea fue eliminada.',
+                    'success'
+                )
+            }
+        });
     }
 }
 
@@ -229,4 +254,11 @@ function cambiarEstadoTarea(tarea, estado) {
 
     //enviar peticion
     xhr.send(datos);
+}
+
+
+//Eliminar Tarea de la BD
+
+function eliminarTareaBD(tarea) {
+
 }
