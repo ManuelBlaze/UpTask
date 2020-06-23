@@ -175,7 +175,7 @@ body.index {
     margin-top: 2rem;
 }
 .contenido-principal h1 span {
-    font-weight: 400;
+    font-weight: bold;
 }
 .agregar-tarea {
     max-width: 800px;
@@ -185,6 +185,12 @@ body.index {
     padding: 2rem;
     color: white;
     transition: background-color .5s ease-in-out;
+}
+
+.selecciona {
+    text-align: center;
+    font-size: 1.6rem;
+    color: #455A64;
 }
 
 /** Listado Pendientes **/
