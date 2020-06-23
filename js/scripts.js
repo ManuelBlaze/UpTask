@@ -62,8 +62,8 @@ function guardarProyectoDB(nombreProyecto) {
                     //Inyectar el html
                     var nuevoProyecto = document.createElement('li');
                     nuevoProyecto.innerHTML = `
-                        <a href="index.php?id_proyecto=${id_proyecto}" id="${id_proyecto}">
-                            ${nombreProyecto}
+                        <a href="index.php?id_proyecto=${id_proyecto}" id="proyecto:${id_proyecto}">
+                            ${proyecto}
                         </a>
                     `;
                     listaProyectos.appendChild(nuevoProyecto);

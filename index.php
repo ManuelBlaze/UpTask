@@ -38,25 +38,35 @@
                         <input type="submit" class="boton nueva-tarea" value="Agregar">
                     </div>
                 </form>
-            <?php } else {
+
+                <h2>Listado de tareas:</h2>
+                <div class="listado-pendientes">
+                    <ul>
+                        <?php
+                            //obtener las tareas dle proyecto actual
+                            $tareas = obtenerTareasProyecto($id_proyecto);
+                            if ($tareas->num_rows > 0) {
+                                //si hay tareas
+                                foreach ($tareas as $tarea ) { ?>
+                                    <li id="tarea:<?php echo $tarea['id'] ?>" class="tarea">
+                                        <p><?php echo $tarea['nombre'] ?></p>
+                                            <div class="acciones">
+                                                <i class="far fa-check-circle <?php echo ($tarea["estado"] === '1' ? 'completo' : '') ?>"></i>
+                                                <i class="fas fa-trash"></i>
+                                            </div>
+                                    </li>  
+                                <?php }
+                            } else {
+                                //no hay
+                                echo "<p>No hay tareas en este proyecto</p>";
+                            }              
+                        ?>
+                    </ul>
+                </div>
+        <?php } else {
                 //Si no hay proyectos seleccionados
                 echo "<p class='selecciona'> Selecciona un proyecto a la izquierda </p>";
             } ?>
-
-        <h2>Listado de tareas:</h2>
-
-        <div class="listado-pendientes">
-            <ul>
-
-                <li id="tarea:<?php echo $tarea['id'] ?>" class="tarea">
-                <p>Cambiar el Logotipo</p>
-                    <div class="acciones">
-                        <i class="far fa-check-circle"></i>
-                        <i class="fas fa-trash"></i>
-                    </div>
-                </li>  
-            </ul>
-        </div>
     </main>
 </div><!--.contenedor-->
 
