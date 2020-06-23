@@ -73,6 +73,32 @@
         <?php } else {
                 //Si no hay proyectos seleccionados
                 echo "<p class='selecciona'> Selecciona un proyecto a la izquierda </p>";
+                ?> <form action="#" class="agregar-tarea">
+            <div class="campo">
+                <label for="tarea">Tarea:</label>
+                <input type="text" placeholder="Nombre Tarea" class="nombre-tarea"> 
+            </div>
+            <div class="campo enviar">
+                <input type="hidden" id="id_proyecto" value="id_proyecto">
+                <input type="submit" class="boton nueva-tarea " value="Agregar" disabled>
+            </div>
+        </form>
+        
+ 
+
+        <h2>Listado de tareas:</h2>
+
+        <div class="listado-pendientes">
+            <ul>
+
+                <li id="tarea:<?php echo $tarea['id'] ?>" class="tarea">
+                <p>Selecciona o crea un Proyecto para agregar Tareas</p>
+                    <div class="acciones">
+                        
+                    </div>
+                </li>  
+            </ul>
+        </div> <?php
             } ?>
     </main>
 </div><!--.contenedor-->
