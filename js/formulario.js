@@ -35,6 +35,7 @@ function validarRegistro(e) {
             if (this.status === 200) {
                 var respuesta = JSON.parse(xhr.responseText);
 
+                // console.log(respuesta);
                 if (respuesta.respuesta === 'correcto') {
                     if (respuesta.tipo === 'crear') {
                         swal({
@@ -42,6 +43,17 @@ function validarRegistro(e) {
                             title: 'Usuario Creado',
                             text: 'El usuario se creó correctamente'
                         });
+                    } else if (respuesta.tipo === 'login') {
+                        swal({
+                                type: 'success',
+                                title: 'Login Correcto',
+                                text: 'Presiona OK para iniciar el dashboard'
+                            })
+                            .then(resultado => {
+                                if (resultado.value) {
+                                    window.location.href = 'index.php';
+                                }
+                            })
                     }
                 } else {
                     swal({
