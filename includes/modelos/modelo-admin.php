@@ -37,7 +37,7 @@
         } catch (Exception $e) {
             //tomar la exception
             $respuesta = array (
-            'pass' => $e->getMessage()
+            'error' => $e->getMessage()
             );
         }
 

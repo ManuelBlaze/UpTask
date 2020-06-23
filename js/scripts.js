@@ -32,12 +32,62 @@ function nuevoProyecto(e) {
 }
 
 function guardarProyectoDB(nombreProyecto) {
-    //Inyectar el html
-    var nuevoProyecto = document.createElement('li');
-    nuevoProyecto.innerHTML = `
-        <a href="#">
-            ${nombreProyecto}
-        </a>
-    `;
-    listaProyectos.appendChild(nuevoProyecto);
+    //crer llamado a AJAX
+    var xhr = new XMLHttpRequest();
+
+    //Enviar datos por formdata
+    var datos = new FormData();
+    datos.append('proyecto', nombreProyecto);
+    datos.append('accion', 'crear');
+
+    //Abrir conexion
+    xhr.open('POST', 'includes/modelos/modelo-proyectos.php', true);
+
+    //En la carga
+    xhr.onload = function () {
+        if (this.status === 200) {
+            //Guardar respuesta
+            var respuesta = JSON.parse(xhr.responseText);
+            var proyecto = respuesta.nombre_proyecto,
+                id_proyecto = respuesta.id_insertado,
+                tipo = respuesta.tipo,
+                resultado = respuesta.respuesta;
+
+            //Comprobar la inserción
+            if (resultado === 'correcto') {
+                if (tipo === 'crear') {
+                    //Inyectar el html
+                    var nuevoProyecto = document.createElement('li');
+                    nuevoProyecto.innerHTML = `
+                        <a href="index.php?id_repuesta=${id_proyecto}" id="${id_proyecto}">
+                            ${nombreProyecto}
+                        </a>
+                    `;
+                    listaProyectos.appendChild(nuevoProyecto);
+                    //Mostrar alerta
+                    swal({
+                        type: 'success',
+                        title: 'Proyecto Creado',
+                        text: 'El proyecto: ' + proyecto + ' se creó correctamente'
+                    }).then(resultado => {
+                        //Redireccionar
+                        if (resultado.value) {
+                            window.location.href = 'index.php?id_proyecto=' + id_proyecto;
+                        }
+                    });
+                } else {
+
+                }
+            } else {
+                swal({
+                    type: 'error',
+                    title: 'Error!',
+                    text: 'Hubo un error'
+                });
+            }
+        }
+    }
+
+    //Enviar el request
+    xhr.send(datos);
 }
