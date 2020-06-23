@@ -9,6 +9,9 @@ function eventListeners() {
 
     //nueva Tarea
     document.querySelector('.nueva-tarea').addEventListener('click', agregarTarea);
+
+    //Acciones d elas tareas
+    document.querySelector('.listado-pendientes').addEventListener('click', accionesTareas);
 }
 
 function nuevoProyecto(e) {
@@ -178,4 +181,52 @@ function agregarTarea(e) {
         //Enviar el request
         xhr.send(datos);
     }
+}
+
+//Acciones para las tareas, cambia estaod o elimina
+
+function accionesTareas(e) {
+    e.preventDefault();
+
+    if (e.target.classList.contains('fa-check-circle')) {
+        //Listo
+        if (e.target.classList.contains('completo')) {
+            e.target.classList.remove('completo');
+            cambiarEstadoTarea(e.target, 0);
+        } else {
+            e.target.classList.add('completo');
+            cambiarEstadoTarea(e.target, 1);
+        }
+
+    }
+    if (e.target.classList.contains('fa-trash')) {
+        //Borrar
+    }
+}
+
+//Completar o descompletar tarea
+function cambiarEstadoTarea(tarea, estado) {
+    var idTarea = tarea.parentElement.parentElement.id.split(':');
+
+    //Llamado a AJAX
+    var xhr = new XMLHttpRequest();
+
+    //info
+    var datos = new FormData();
+    datos.append('id', idTarea[1]);
+    datos.append('accion', 'actualizar');
+    datos.append('estado', estado);
+
+    //Abrir conexion
+    xhr.open('POST', 'includes/modelos/modelo-tareas.php', true);
+
+    //on load
+    xhr.onload = function () {
+        if (this.status === 200) {
+            // console.log(JSON.parse(xhr.responseText));
+        }
+    }
+
+    //enviar peticion
+    xhr.send(datos);
 }
