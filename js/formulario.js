@@ -15,7 +15,7 @@ function validarRegistro(e) {
         swal({
             type: 'error',
             title: 'Error!',
-            text: 'Ambos campos son obligatorios',
+            text: 'Ambos campos son obligatorios'
         });
     } else {
         //AJAX
@@ -33,16 +33,26 @@ function validarRegistro(e) {
 
         xhr.onload = function () {
             if (this.status === 200) {
-                console.log(JSON.parse(xhr.responseText));
+                var respuesta = JSON.parse(xhr.responseText);
+
+                if (respuesta.respuesta === 'correcto') {
+                    if (respuesta.tipo === 'crear') {
+                        swal({
+                            type: 'success',
+                            title: 'Usuario Creado',
+                            text: 'El usuario se creó correctamente'
+                        });
+                    }
+                } else {
+                    swal({
+                        type: 'error',
+                        title: 'Error',
+                        text: 'Hubo un error'
+                    });
+                }
             }
         };
 
         xhr.send(datos);
-
-        swal({
-            type: 'success',
-            title: 'Correcto',
-            text: 'Ambos campos son obligatorios',
-        });
     }
 }
