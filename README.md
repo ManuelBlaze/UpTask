@@ -1,4 +1,4 @@
-T<h1>UpTask - Administrador de Proyectos</h1>
+<h1>UpTask - Administrador de Proyectos</h1>
  <p>Administrador personal de proyectos con inicio de sesión y validaciones</p>
  <p>Tecnologías utilizadas</p>
  <ul>
