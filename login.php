@@ -3,6 +3,10 @@
     include_once 'includes/funciones/funciones.php';
     include_once 'includes/templates/header.php';
     
+    session_start();
+    if (isset($_GET['cerrar_sesion'])) {
+        $_SESSION = array();
+    } 
 ?>
 
     <div class="contenedor-formulario">
