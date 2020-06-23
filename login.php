@@ -22,13 +22,9 @@
             </div>
 
             <div class="campo">
-                <a href="crear-cuenta.html">Crea una cuenta nueva</a>
+                <a href="crear-cuenta.php">Crea una cuenta nueva</a>
             </div>
         </form>
     </div>
 
-    <script src="js/sweetalert2.all.min.js"></script>
-
-
-</body>
-</html>
+<?php include_once 'includes/templates/footer.php' ?>
