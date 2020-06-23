@@ -125,7 +125,53 @@ function agregarTarea(e) {
             if (this.status === 200) {
                 //Guardar respuesta
                 var respuesta = JSON.parse(xhr.responseText);
-                console.log(respuesta);
+
+                var resultado = respuesta.respuesta,
+                    tarea = respuesta.tarea,
+                    id_insertado = respuesta.id_insertado,
+                    tipo = respuesta.tipo;
+
+                if (resultado === 'correcto') {
+                    if (tipo === 'crear') {
+                        //Lanzar alerta
+                        swal({
+                            type: 'success',
+                            title: 'Tarea Creada',
+                            text: 'La tarea: ' + tarea + ' se creó correctamente'
+                        });
+
+                        //construit template
+                        var nuevaTarea = document.createElement('li');
+
+                        //Agregar ID
+                        nuevaTarea.id = 'tarea:' + id_insertado;
+
+                        //Agregar clase tarea
+                        nuevaTarea.classList.add('tarea');
+
+                        //Insertar en el html
+                        nuevaTarea.innerHTML = `
+                            <p>${tarea}</p>
+                            <div class = "acciones">
+                                <i class = "far fa-check-circle"> </i> 
+                                <i class = "fas fa-trash"> </i> 
+                            </div>
+                        `;
+
+                        //Agregar a la lista
+                        var listado = document.querySelector('.listado-pendientes ul');
+                        listado.appendChild(nuevaTarea);
+
+                        //Limpiar el formulario
+                        document.querySelector('.agregar-tarea').reset();
+                    }
+                } else {
+                    swal({
+                        type: 'error',
+                        title: 'Error!',
+                        text: 'Hubo un error'
+                    });
+                }
             }
         }
 
