@@ -53,12 +53,12 @@
                                             <div class="acciones">
                                                 <i class="far fa-check-circle <?php echo ($tarea["estado"] === '1' ? 'completo' : '') ?>"></i>
                                                 <i class="fas fa-trash"></i>
-                                            </div>
+                                            </div> 
                                     </li>  
                                 <?php }
                             } else {
                                 //no hay
-                                echo "<p class='lista-vacia'>No hay tareas en este proyecto</p>";
+                                echo "<p class='lista-vacia'><img class='gif' src='img/7VE.gif'></p>";
                             }              
                         ?>
                     </ul>
@@ -73,33 +73,24 @@
         <?php } else {
                 //Si no hay proyectos seleccionados
                 echo "<p class='selecciona'> Selecciona un proyecto a la izquierda </p>";
-                ?> <form action="#" class="agregar-tarea">
-            <div class="campo">
-                <label for="tarea">Tarea:</label>
-                <input type="text" placeholder="Nombre Tarea" class="nombre-tarea"> 
-            </div>
-            <div class="campo enviar">
-                <input type="hidden" id="id_proyecto" value="id_proyecto">
-                <input type="submit" class="boton nueva-tarea " value="Agregar" disabled>
-            </div>
-        </form>
-        
- 
-
-        <h2>Listado de tareas:</h2>
-
-        <div class="listado-pendientes">
-            <ul>
-
-                <li id="tarea:<?php echo $tarea['id'] ?>" class="tarea">
-                <p>Selecciona o crea un Proyecto para agregar Tareas</p>
-                    <div class="acciones">
-                        
+                ?> 
+                <form action="#" class="agregar-tarea dNone" >
+                    <div class="campo">
+                        <label for="tarea">Tarea:</label>
+                        <input type="text" placeholder="Nombre Tarea" class="nombre-tarea"> 
                     </div>
-                </li>  
-            </ul>
-        </div> <?php
-            } ?>
+                    <div class="campo enviar">
+                        <input type="hidden" id="id_proyecto" value="id_proyecto">
+                        <input type="submit" class="boton nueva-tarea " value="Agregar" disabled>
+                    </div>
+                </form>
+
+                <div class="listado-pendientes">
+                    <ul>
+                        <img class='gif' src='img/7VE.gif'>
+                    </ul>
+                </div> 
+        <?php } ?>
     </main>
 </div><!--.contenedor-->
 

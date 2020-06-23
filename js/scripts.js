@@ -295,7 +295,7 @@ function eliminarTareaBD(tarea) {
             //Comprobar que haya tareas restantes
             var listaTareasRestantes = document.querySelectorAll('li.tarea');
             if (listaTareasRestantes.length === 0) {
-                document.querySelector('.listado-pendientes ul').innerHTML = "<p class='lista-vacia'>No hay tareas en este proyecto</p>";
+                document.querySelector('.listado-pendientes ul').innerHTML = "<div class='lista-vacia'><img class='gif' src='img/7VE.gif'></div>";
             }
 
             actualizarProgreso();
