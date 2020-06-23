@@ -6,6 +6,9 @@ var listaProyectos = document.querySelector('ul#proyectos');
 function eventListeners() {
     //crear proyecto
     document.querySelector('.crear-proyecto a').addEventListener('click', nuevoProyecto);
+
+    //nueva Tarea
+    document.querySelector('.nueva-tarea').addEventListener('click', agregarTarea);
 }
 
 function nuevoProyecto(e) {
@@ -90,4 +93,43 @@ function guardarProyectoDB(nombreProyecto) {
 
     //Enviar el request
     xhr.send(datos);
+}
+
+//gregar nueva tarea
+
+function agregarTarea(e) {
+    e.preventDefault();
+    var nombreTarea = document.querySelector('.nombre-tarea').value;
+    if (nombreTarea === '') {
+        swal({
+            type: 'error',
+            title: 'Error',
+            text: 'No puedes enviar una tarea vacía'
+        });
+    } else {
+        //crer llamado a AJAX
+        var xhr = new XMLHttpRequest();
+
+        //Enviar datos por formdata
+        var datos = new FormData();
+        datos.append('tarea', nombreTarea);
+        datos.append('accion', 'crear');
+        datos.append('id_proyecto', document.querySelector('#id_proyecto').value);
+
+
+        //Abrir conexion
+        xhr.open('POST', 'includes/modelos/modelo-tareas.php', true);
+
+        //En la carga
+        xhr.onload = function () {
+            if (this.status === 200) {
+                //Guardar respuesta
+                var respuesta = JSON.parse(xhr.responseText);
+                console.log(respuesta);
+            }
+        }
+
+        //Enviar el request
+        xhr.send(datos);
+    }
 }
