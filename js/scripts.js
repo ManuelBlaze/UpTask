@@ -143,6 +143,11 @@ function agregarTarea(e) {
                             text: 'La tarea: ' + tarea + ' se creó correctamente'
                         });
 
+                        //seleccionar parrafo con lista vacia
+                        if (document.querySelector('.lista-vacia') != null) {
+                            document.querySelector('.lista-vacia').remove();
+                        }
+
                         //construit template
                         var nuevaTarea = document.createElement('li');
 
@@ -277,6 +282,11 @@ function eliminarTareaBD(tarea) {
     xhr.onload = function () {
         if (this.status === 200) {
             // console.log(JSON.parse(xhr.responseText));
+            //Comprobar que haya tareas restantes
+            var listaTareasRestantes = document.querySelectorAll('li.tarea');
+            if (listaTareasRestantes.length === 0) {
+                document.querySelector('.listado-pendientes ul').innerHTML = "<p class='lista-vacia'>No hay tareas en este proyecto</p>";
+            }
         }
     }
 

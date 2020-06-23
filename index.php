@@ -43,7 +43,7 @@
                 <div class="listado-pendientes">
                     <ul>
                         <?php
-                            //obtener las tareas dle proyecto actual
+                            //obtener las tareas del proyecto actual
                             $tareas = obtenerTareasProyecto($id_proyecto);
                             if ($tareas->num_rows > 0) {
                                 //si hay tareas
@@ -58,7 +58,7 @@
                                 <?php }
                             } else {
                                 //no hay
-                                echo "<p>No hay tareas en este proyecto</p>";
+                                echo "<p class='lista-vacia'>No hay tareas en este proyecto</p>";
                             }              
                         ?>
                     </ul>
