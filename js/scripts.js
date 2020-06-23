@@ -204,7 +204,7 @@ function accionesTareas(e) {
         Swal.fire({
             title: 'Seguro(a)?',
             text: "Esta acción no se puede deshacer!",
-            icon: 'warning',
+            type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -260,5 +260,26 @@ function cambiarEstadoTarea(tarea, estado) {
 //Eliminar Tarea de la BD
 
 function eliminarTareaBD(tarea) {
+    var idTarea = tarea.id.split(':');
 
+    //Llamado a AJAX
+    var xhr = new XMLHttpRequest();
+
+    //info
+    var datos = new FormData();
+    datos.append('id', idTarea[1]);
+    datos.append('accion', 'eliminar');
+
+    //Abrir conexion
+    xhr.open('POST', 'includes/modelos/modelo-tareas.php', true);
+
+    //on load
+    xhr.onload = function () {
+        if (this.status === 200) {
+            // console.log(JSON.parse(xhr.responseText));
+        }
+    }
+
+    //enviar peticion
+    xhr.send(datos);
 }

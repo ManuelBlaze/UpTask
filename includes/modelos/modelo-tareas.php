@@ -1,12 +1,10 @@
 <?php
 
     $accion = $_POST['accion'];
-    $id_proyecto = (int) $_POST['id_proyecto'];
-    $tarea = $_POST['tarea'];
-    $estado = $_POST['estado'];
-    $id_tarea = (int) $_POST['id'];
 
     if ($accion === 'crear') {
+        $id_proyecto = (int) $_POST['id_proyecto'];
+        $tarea = $_POST['tarea'];
         //importar la conexion
         include '../funciones/conexion.php';
         
@@ -43,7 +41,8 @@
     };
     
     if ($accion === 'actualizar') {
-
+        $estado = $_POST['estado'];
+        $id_tarea = (int) $_POST['id'];
         //importar la conexion
         include '../funciones/conexion.php';
         
@@ -51,6 +50,38 @@
             //Realizar la consulta
             $stmt = $conn->prepare("UPDATE tareas SET estado = ? WHERE id = ?");
             $stmt->bind_param('ii', $estado, $id_tarea);
+            $stmt->execute();
+
+            if ($stmt->affected_rows > 0) {
+                $respuesta = array (
+                    'respuesta' => 'correcto'
+                );
+            } else {
+                $respuesta = array (
+                    'respuesta' => 'error'
+                );
+            }
+            
+            $stmt->close();
+            $conn->close();
+        } catch (Exception $e) {
+            //tomar la exception
+            $respuesta = array (
+                'error' => $e->getMessage()
+            );
+        }
+        echo json_encode($respuesta);
+    };
+
+    if ($accion === 'eliminar') {
+        $id_tarea = (int) $_POST['id'];
+        //importar la conexion
+        include '../funciones/conexion.php';
+        
+        try {
+            //Realizar la consulta
+            $stmt = $conn->prepare("DELETE FROM tareas WHERE id = ?");
+            $stmt->bind_param('i', $id_tarea);
             $stmt->execute();
             
             if ($stmt->affected_rows > 0) {
@@ -71,8 +102,6 @@
                 'error' => $e->getMessage()
             );
         }
-
-
         echo json_encode($respuesta);
     };
 ?>
