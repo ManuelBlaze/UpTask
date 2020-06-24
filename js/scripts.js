@@ -27,6 +27,7 @@ function eventListeners() {
 function nuevoProyecto(e) {
     e.preventDefault();
 
+    var listaProyectos = document.querySelector('ul#proyectos');
     //Crear input para el nuevo proyecto
     var nuevoProyecto = document.createElement('li');
     nuevoProyecto.innerHTML = '<input type="text" id="nuevo-proyecto">';
@@ -79,6 +80,7 @@ function guardarProyectoDB(nombreProyecto) {
                             ${proyecto}
                         </a>
                     `;
+                    var listaProyectos = document.querySelector('ul#proyectos');
                     listaProyectos.appendChild(nuevoProyecto);
                     //Mostrar alerta
                     swal({
@@ -152,6 +154,13 @@ function eliminarProyectoBD(id) {
                     if (resultado.value) {
                         window.location.href = 'index.php';
                     }
+                });
+            } else {
+                console.log(resultado);
+                swal({
+                    type: 'error',
+                    title: 'Error',
+                    text: 'Ha ocurrido un Error'
                 });
             }
         }
