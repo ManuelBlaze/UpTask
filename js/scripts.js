@@ -227,10 +227,13 @@ function agregarTarea(e) {
                                 <i class = "fas fa-trash"> </i> 
                             </div>
                         `;
+                        var separador = document.createElement('div');
+                        separador.classList.add('separador');
 
                         //Agregar a la lista
                         var listado = document.querySelector('.listado-pendientes ul');
                         listado.appendChild(nuevaTarea);
+                        listado.appendChild(separador);
 
                         //Limpiar el formulario
                         document.querySelector('.agregar-tarea').reset();
@@ -287,6 +290,7 @@ function accionesTareas(e) {
                 eliminarTareaBD(tareaEliminar);
 
                 //Borrar del html
+                tareaEliminar.nextSibling.remove();
                 tareaEliminar.remove();
 
                 Swal.fire(
