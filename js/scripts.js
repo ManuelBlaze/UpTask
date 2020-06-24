@@ -13,11 +13,15 @@ function eventListeners() {
     //crear proyecto
     document.querySelector('.crear-proyecto a').addEventListener('click', nuevoProyecto);
 
+    //eliminar proyecto
+    document.querySelector('.borrar-proyecto a').addEventListener('click', eliminarProyecto);
+
     //nueva Tarea
     document.querySelector('.nueva-tarea').addEventListener('click', agregarTarea);
 
-    //Acciones d elas tareas
+    //Acciones de las tareas
     document.querySelector('.listado-pendientes').addEventListener('click', accionesTareas);
+
 }
 
 function nuevoProyecto(e) {
@@ -104,7 +108,59 @@ function guardarProyectoDB(nombreProyecto) {
     xhr.send(datos);
 }
 
-//gregar nueva tarea
+//Eliminar Proyecto
+function eliminarProyecto(e) {
+    e.preventDefault();
+    Swal.fire({
+        title: 'Seguro(a)?',
+        text: "Esta acción no se puede deshacer!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Borrar!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            const id = e.target.getAttribute('id');
+            //Borrar de la BD
+            eliminarProyectoBD(id);
+        }
+    });
+}
+
+//Eliminar Proyecto BD
+function eliminarProyectoBD(id) {
+    //Llamado a AJAX
+    //Crear objeto
+    const xhr = new XMLHttpRequest();
+
+    //Abrir Conexion
+    xhr.open('GET', `includes/modelos/eliminar-proyecto.php?id=${id}&accion=borrar`, true);
+
+    //Leer respuesta
+    xhr.onload = function () {
+        if (this.status === 200) {
+            const resultado = JSON.parse(xhr.responseText);
+            if (resultado.respuesta === 'correcto') {
+                Swal.fire(
+                    'Eliminado!',
+                    'El proyecto fue eliminado.',
+                    'success'
+                ).then(resultado => {
+                    //Redireccionar
+                    if (resultado.value) {
+                        window.location.href = 'index.php';
+                    }
+                });
+            }
+        }
+    }
+    //Enviar la peticion
+    xhr.send();
+}
+
+//Agregar nueva tarea
 
 function agregarTarea(e) {
     e.preventDefault();

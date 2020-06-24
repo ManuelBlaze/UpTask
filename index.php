@@ -50,11 +50,12 @@
                                 foreach ($tareas as $tarea ) { ?>
                                     <li id="tarea:<?php echo $tarea['id'] ?>" class="tarea">
                                         <p><?php echo $tarea['nombre'] ?></p>
-                                            <div class="acciones">
-                                                <i class="far fa-check-circle <?php echo ($tarea["estado"] === '1' ? 'completo' : '') ?>"></i>
-                                                <i class="fas fa-trash"></i>
-                                            </div> 
-                                    </li>  
+                                        <div class="acciones">
+                                            <i class="far fa-check-circle <?php echo ($tarea["estado"] === '1' ? 'completo' : '') ?>"></i>
+                                            <i class="fas fa-trash"></i>
+                                        </div> 
+                                    </li>
+                                    <div class="separador"></div>
                                 <?php }
                             } else {
                                 //no hay
@@ -70,6 +71,10 @@
                         </div>                        
                     </div>
                 </div>
+
+                <div class="panel borrar-proyecto">
+                    <a href="#" class="boton borrar-pro" id="<?php echo $id_proyecto ?>"><i class="fas fa-trash"></i> Eliminar Proyecto</a>
+                </div>
         <?php } else {
                 //Si no hay proyectos seleccionados
                 echo "<p class='selecciona'> Selecciona un proyecto a la izquierda </p>";
@@ -84,10 +89,10 @@
                         <input type="submit" class="boton nueva-tarea " value="Agregar" disabled>
                     </div>
                 </form>
-
-                <div class="listado-pendientes">
+                <img class='gif' src='img/7VE.gif'>
+                <div class="listado-pendientes dNone">
                     <ul>
-                        <img class='gif' src='img/7VE.gif'>
+                        
                     </ul>
                 </div> 
         <?php } ?>
