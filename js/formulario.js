@@ -42,6 +42,11 @@ function validarRegistro(e) {
                             type: 'success',
                             title: 'Usuario Creado',
                             text: 'El usuario se creó correctamente'
+                        }).then(resultado => {
+                            //Redireccionar
+                            if (resultado.value) {
+                                window.location.href = 'login.php';
+                            }
                         });
                     } else if (respuesta.tipo === 'login') {
                         swal({
